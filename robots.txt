@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+Allow: /games/
+Allow: /css/
+Allow: /js/
+
+# 禁止访问后台和临时文件
+Disallow: /node_modules/
+Disallow: /scripts/
+Disallow: /*.json$
+
+# Sitemap
+Sitemap: https://your-domain.com/sitemap.xml 

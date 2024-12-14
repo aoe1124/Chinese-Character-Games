@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>三字经游戏 - 中文启蒙小游戏</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/game.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo"><a href="../index.html">中文启蒙小游戏</a></h1>
+            <nav class="nav">
+                <ul>
+                    <li><a href="../index.html">首页</a></li>
+                    <li><a href="#" class="active">三字经</a></li>
+                    <li><a href="hundred-family-names.html">百家姓</a></li>
+                    <li><a href="thousand-character.html">千字文</a></li>
+                    <li><a href="../links.html">友情链接</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container game-container">
+            <div class="game-area">
+                <!-- 模式切换和进度显示 -->
+                <div class="control-bar">
+                    <div class="mode-switch">
+                        <button class="mode-btn active" data-mode="sequence">顺序学习</button>
+                        <button class="mode-btn" data-mode="random">随机学习</button>
+                    </div>
+                    <div class="progress-display">
+                        第<span class="current-sentence">1</span>句 / 共<span class="total-sentences">124</span>句
+                    </div>
+                </div>
+
+                <!-- 完整句子 -->
+                <div class="full-sentence">
+                    <ruby>
+                        人<rt>rén</rt>
+                        之<rt>zhī</rt>
+                        初<rt>chū</rt>
+                        ，<rt></rt>
+                        性<rt>xìng</rt>
+                        本<rt>běn</rt>
+                        善<rt>shàn</rt>
+                    </ruby>
+                </div><!-- 完整句子 -->
+
+                <!-- 当前学习的字 -->
+                <div class="current-study">
+                    <div class="study-title">现在学习：</div>
+                    <div class="big-character">人<div class="big-character-grid"></div></div>
+                </div>
+
+                <!-- 游戏区：找相同的字 -->
+                <div class="game-section">
+                    <p class="instruction">找一找相同的字：</p>
+                    <div class="character-options">
+                        <!-- 选项会通过 JavaScript 动态生成 -->
+                    </div>
+                </div>
+
+                <!-- 反馈区 -->
+                <div class="feedback-area"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>中文启蒙小游戏 © 2024</p>
+        </div>
+    </footer>
+
+    <script src="../js/three-character-data.js"></script>
+    <script src="../js/three-character.js"></script>
+</body>
+</html> 

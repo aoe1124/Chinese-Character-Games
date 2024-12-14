@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>友情链接 - 中文启蒙小游戏</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .links-section {
+            padding: 2rem 0;
+        }
+        
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .link-card {
+            background: var(--color-paper);
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .link-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .link-card h3 {
+            color: var(--color-red);
+            margin-bottom: 0.5rem;
+        }
+        
+        .link-card p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .link-card a {
+            color: var(--color-blue);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .link-card a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部导航 -->
+    <header class="header">
+        <div class="container">
+            <h1 class="logo"><a href="index.html">中文启蒙小游戏</a></h1>
+            <nav class="nav">
+                <ul>
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="games/three-character.html">三字经</a></li>
+                    <li><a href="games/hundred-family-names.html">百家姓</a></li>
+                    <li><a href="games/thousand-character.html">千字文</a></li>
+                    <li><a href="#" class="active">友情链接</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 主要内容区 -->
+    <main class="main">
+        <div class="container">
+            <section class="links-section">
+                <h2>友情链接</h2>
+                <div class="links-grid">
+                    <div class="link-card">
+                        <h3>中国国家图书馆</h3>
+                        <p>中国国家图书馆官方网站，提供丰富的数字资源和在线阅读服务。</p>
+                        <a href="http://www.nlc.cn" target="_blank">访问网站 →</a>
+                    </div>
+                    <div class="link-card">
+                        <h3>汉典</h3>
+                        <p>最大的在线汉字字典，收录大量汉字、词语解释及用法。</p>
+                        <a href="https://www.zdic.net" target="_blank">访问网站 →</a>
+                    </div>
+                    <div class="link-card">
+                        <h3>故宫博物院</h3>
+                        <p>故宫博物院官方网站，了解中国传统文化和历史。</p>
+                        <a href="https://www.dpm.org.cn" target="_blank">访问网站 →</a>
+                    </div>
+                    <div class="link-card">
+                        <h3>中国诗歌网</h3>
+                        <p>收录大量中国古典诗词作品，提供诗词鉴赏和学习资源。</p>
+                        <a href="http://www.shigeku.org" target="_blank">访问网站 →</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <p>中文启蒙小游戏 © 2024</p>
+        </div>
+    </footer>
+</body>
+</html> 

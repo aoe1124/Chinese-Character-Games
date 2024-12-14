@@ -1,0 +1,162 @@
+/* 游戏容器样式 */
+.game-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.game-area {
+    background-color: var(--color-paper);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* 标题样式统一 */
+.study-title,
+.instruction {
+    color: var(--color-red);
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+/* 完整句子区域 */
+.full-sentence {
+    font-size: 1.4rem;
+    margin: 1rem 0 2rem;
+    color: var(--color-ink);
+    padding: 1.2rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    position: relative;
+}
+
+.full-sentence::before {
+    content: '完整句子：';
+    position: absolute;
+    top: -0.6rem;
+    left: 1rem;
+    background: var(--color-paper);
+    padding: 0 0.5rem;
+    font-size: 0.7rem;
+    color: #88B0C8;
+}
+
+/* 当前学习的字 */
+.study-title {
+    margin-bottom: 1rem;
+}
+
+.big-character {
+    font-size: 8rem;
+    margin: 1.5rem auto;
+    color: var(--color-ink);
+    line-height: 1;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: rgba(0, 0, 0, 0.02);
+    border-radius: 12px;
+}
+
+/* 移除所有内部线条 */
+.big-character::before,
+.big-character::after,
+.big-character-grid::before,
+.big-character-grid::after {
+    display: none;
+}
+
+/* 游戏区样式 */
+.instruction {
+    margin: 2rem 0 1rem;
+}
+
+.character-options {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.character-option {
+    font-size: 2rem;
+    padding: 1rem 2rem;
+    border: 2px solid rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: var(--color-paper);
+}
+
+.character-option:hover {
+    background-color: rgba(0, 0, 0, 0.02);
+    border-color: rgba(0, 0, 0, 0.25);
+}
+
+/* 反馈区域 */
+.feedback-area {
+    margin-top: 2rem;
+    font-size: 1.5rem;
+    min-height: 2rem;
+}
+
+/* 正确/错误状态 */
+.correct {
+    background-color: #e8f5e9 !important;
+    color: #2e7d32;
+}
+
+.incorrect {
+    animation: shake 0.5s ease;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+} 
+
+/* 控制栏样式 */
+.control-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding: 0.5rem 0;
+}
+
+.mode-switch {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.mode-btn {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--color-blue);
+    background: transparent;
+    color: var(--color-blue);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.mode-btn:hover {
+    background: rgba(136, 176, 200, 0.1);
+}
+
+.mode-btn.active {
+    background: var(--color-blue);
+    color: var(--color-paper);
+}
+
+.progress-display {
+    font-size: 0.9rem;
+    color: var(--color-blue);
+    padding: 0.5rem;
+}
+  

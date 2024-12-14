@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中文启蒙小游戏 - 儿童中国传统文化学习平台</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="中文启蒙小游戏是专为3-12岁儿童设计的在线教育平台，包含三字经、百家姓、千字文等传统文化教育内容，通过趣味游戏方式培养孩子的中文素养。">
+    <meta name="keywords" content="中文启蒙,儿童教育,三字经,百家姓,千字文,传统文化,教育游戏,识字游戏">
+    <meta name="author" content="中文启蒙小游戏">
+    
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="中文启蒙小游戏 - 儿童中国传统文化学习平台">
+    <meta property="og:description" content="专为儿童设计的中国传统文化学习平台，让孩子轻松学习三字经、百家姓、千字文。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://your-domain.com/">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://your-domain.com/">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* 即将推出样式 */
+        .coming-soon {
+            opacity: 0.8;
+        }
+        
+        .coming-soon .btn {
+            background-color: #888;
+            cursor: not-allowed;
+        }
+        
+        .coming-soon .btn:hover {
+            background-color: #888;
+        }
+    </style>
+    
+    <!-- 结构化数据 -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "EducationalApplication",
+      "name": "中文启蒙小游戏",
+      "description": "专为儿童设计的中国传统文化学习平台",
+      "applicationCategory": "教育游戏",
+      "audience": {
+        "@type": "EducationalAudience",
+        "educationalRole": "student",
+        "audienceType": "儿童"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "CNY"
+      }
+    }
+    </script>
+</head>
+<body>
+    <!-- 头部导航 -->
+    <header class="header" role="banner">
+        <div class="container">
+            <h1 class="logo"><a href="index.html" title="返回首页">中文启蒙小游戏</a></h1>
+            <nav class="nav" role="navigation" aria-label="主导航">
+                <ul>
+                    <li><a href="#" class="active" aria-current="page">首页</a></li>
+                    <li><a href="games/three-character.html">三字经</a></li>
+                    <li><a href="games/hundred-family-names.html">百家姓</a></li>
+                    <li><a href="games/thousand-character.html">千字文</a></li>
+                    <li><a href="links.html">友情链接</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 主要内容区 -->
+    <main class="main" role="main">
+        <div class="container">
+            <!-- 游戏选择区 -->
+            <section class="game-section">
+                <h2>开始学习</h2>
+                <div class="game-grid">
+                    <article class="game-card">
+                        <h3>三字经</h3>
+                        <p>通过趣味游戏认识汉字，学习传统文化精髓，培养良好品德。适合3-12岁儿童。</p>
+                        <a href="games/three-character.html" class="btn" role="button">开始游戏</a>
+                    </article>
+                    <article class="game-card">
+                        <h3>百家姓</h3>
+                        <p>探索中国姓氏文化，了解姓氏起源，认识历史名人，增强文化认同感。</p>
+                        <a href="games/hundred-family-names.html" class="btn" role="button">开始游戏</a>
+                    </article>
+                    <article class="game-card">
+                        <h3>千字文</h3>
+                        <p>学习千字文经典内容，提升识字量，了解古代文化知识，培养文学素养。</p>
+                        <a href="games/thousand-character.html" class="btn" role="button">开始游戏</a>
+                    </article>
+                    <article class="game-card coming-soon">
+                        <h3>声律启蒙</h3>
+                        <p>即将推出：通过韵律学习感受诗词之美，提升语言表达能力。</p>
+                        <a href="#" class="btn" onclick="return false;" aria-disabled="true">敬请期待</a>
+                    </article>
+                    <article class="game-card coming-soon">
+                        <h3>幼学琼林</h3>
+                        <p>即将推出：探索传统文化百科知识，开拓视野，增长见识。</p>
+                        <a href="#" class="btn" onclick="return false;" aria-disabled="true">敬请期待</a>
+                    </article>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <p>中文启蒙小游戏 © 2024 - 让传统文化教育更有趣</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
