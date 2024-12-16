@@ -10,4 +10,4 @@ Disallow: /scripts/
 Disallow: /*.json$
 
 # Sitemap
-Sitemap: https://your-domain.com/sitemap.xml 
+Sitemap: https://www.playchinese.win/sitemap.xml 
