@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>投资App - 市场</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../css/styles.css">
+  <style>
+    .market-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 16px;
+    }
+    
+    .market-tab {
+      flex: 1;
+      text-align: center;
+      padding: 12px 0;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      position: relative;
+    }
+    
+    .market-tab.active {
+      color: var(--primary-color);
+    }
+    
+    .market-tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 25%;
+      right: 25%;
+      height: 2px;
+      background-color: var(--primary-color);
+    }
+    
+    .news-item {
+      padding: 16px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .news-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+    
+    .news-summary {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+    
+    .news-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #999;
+    }
+    
+    .news-source {
+      display: flex;
+      align-items: center;
+    }
+    
+    .news-source-logo {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background-color: #f0f0f0;
+      margin-right: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: #666;
+    }
+    
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .calendar-title {
+      font-size: 18px;
+      font-weight: 600;
+    }
+    
+    .calendar-nav {
+      display: flex;
+      align-items: center;
+    }
+    
+    .calendar-nav-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background-color: var(--bg-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 8px;
+    }
+    
+    .calendar-days {
+      display: flex;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .calendar-day {
+      flex: 1;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+    
+    .calendar-events {
+      padding: 16px;
+    }
+    
+    .calendar-event {
+      margin-bottom: 16px;
+      display: flex;
+    }
+    
+    .event-time {
+      width: 60px;
+      font-size: 12px;
+      color: var(--text-secondary);
+      padding-top: 2px;
+    }
+    
+    .event-content {
+      flex: 1;
+      background-color: var(--card-bg);
+      border-radius: 8px;
+      padding: 12px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+    
+    .event-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    
+    .event-description {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+    
+    .event-impact {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 10px;
+      margin-top: 8px;
+    }
+    
+    .impact-high {
+      background-color: rgba(255, 45, 85, 0.1);
+      color: #ff2d55;
+    }
+    
+    .impact-medium {
+      background-color: rgba(255, 149, 0, 0.1);
+      color: #ff9500;
+    }
+    
+    .impact-low {
+      background-color: rgba(0, 122, 255, 0.1);
+      color: #007aff;
+    }
+    
+    .research-item {
+      padding: 16px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .research-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    
+    .research-source {
+      font-size: 12px;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+    }
+    
+    .research-date {
+      font-size: 12px;
+      color: #999;
+    }
+    
+    .research-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+    
+    .research-summary {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+    
+    .research-tags {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    
+    .research-tag {
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background-color: var(--bg-color);
+      margin-right: 6px;
+      margin-bottom: 6px;
+      color: var(--text-secondary);
+    }
+  </style>
+</head>
+<body>
+  <div class="device-container">
+    <!-- iOS状态栏 -->
+    <div class="status-bar">
+      <div class="status-bar-left">
+        <span class="current-time">12:30</span>
+      </div>
+      <div class="status-bar-right">
+        <svg width="18" height="16" viewBox="0 0 18 16">
+          <path fill="#000" d="M1 12.5h11a1 1 0 0 1 0 2H1a1 1 0 0 1 0-2zm0-5h14a1 1 0 0 1 0 2H1a1 1 0 0 1 0-2zm0-5h7a1 1 0 0 1 0 2H1a1 1 0 0 1 0-2z"></path>
+        </svg>
+        <svg width="16" height="16" viewBox="0 0 16 16">
+          <path fill="#000" d="M12.667 4.667A4.671 4.671 0 0 0 8 0a4.671 4.671 0 0 0-4.667 4.667C3.333 8.552 8 16 8 16s4.667-7.448 4.667-11.333zm-4.667 2a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"></path>
+        </svg>
+        <svg width="24" height="16" viewBox="0 0 24 16">
+          <path fill="#000" d="M12 2c2.131 0 4 1.73 4 3.702 0 2.05-1.714 4.941-4 8.561-2.286-3.62-4-6.51-4-8.561C8 3.73 9.869 2 12 2zm0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"></path>
+        </svg>
+        <svg width="25" height="16" viewBox="0 0 25 16">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M16 5C16 7.761 13.761 10 11 10C8.239 10 6 7.761 6 5C6 2.239 8.239 0 11 0C13.761 0 16 2.239 16 5ZM8 5C8 6.657 9.343 8 11 8C12.657 8 14 6.657 14 5C14 3.343 12.657 2 11 2C9.343 2 8 3.343 8 5ZM21.5 7C21.5 8.933 19.933 10.5 18 10.5C16.067 10.5 14.5 8.933 14.5 7C14.5 5.067 16.067 3.5 18 3.5C19.933 3.5 21.5 5.067 21.5 7ZM18 8.5C18.828 8.5 19.5 7.828 19.5 7C19.5 6.172 18.828 5.5 18 5.5C17.172 5.5 16.5 6.172 16.5 7C16.5 7.828 17.172 8.5 18 8.5ZM22 14.834C22 11.834 18 10.834 18 10.834C18 10.834 14 11.834 14 14.834V16H22V14.834ZM16.184 14C16.598 13.335 17.223 13 18 13C18.777 13 19.402 13.335 19.816 14H16.184ZM11 11C7.667 11 1 12.667 1 16V16H21V16C21 12.667 14.333 11 11 11ZM3.109 14C4.075 13.279 6.792 13 11 13C15.208 13 17.925 13.279 18.891 14H3.109Z" fill="#000"/>
+        </svg>
+        <svg width="20" height="16" viewBox="0 0 20 16">
+          <path fill="#000" d="M19.98 5.888c-.144-1.104-.816-1.968-1.728-2.112l-14.352-.576c-1.008-.048-1.92.672-2.112 1.728-.528 3.312-1.728 7.152-1.728 7.152-.144 1.104.672 1.776 1.728 1.92l14.256.576h.096c1.008 0 1.824-.672 2.016-1.728 0 0 1.248-3.936 1.824-7.008v.048z"></path>
+        </svg>
+      </div>
+    </div>
+    
+    <!-- 内容区域 -->
+    <div class="app-content">
+      <!-- 搜索栏 -->
+      <div class="search-bar">
+        <i class="search-icon fas fa-search"></i>
+        <input type="text" class="search-input" placeholder="搜索市场资讯">
+      </div>
+      
+      <!-- 市场选项卡 -->
+      <div class="market-tabs">
+        <div class="market-tab active">财经新闻</div>
+        <div class="market-tab">财经日历</div>
+        <div class="market-tab">研报</div>
+      </div>
+      
+      <!-- 财经新闻 -->
+      <div id="news-list">
+        <div class="news-item">
+          <div class="news-title">美联储暗示年内可能降息，市场普遍看好</div>
+          <div class="news-summary">美联储主席鲍威尔在最新讲话中暗示，如果通胀持续降温，年内可能会开始降息周期。</div>
+          <div class="news-meta">
+            <div class="news-source">
+              <div class="news-source-logo">W</div>
+              <span>华尔街日报</span>
+            </div>
+            <div class="news-time">10:30</div>
+          </div>
+        </div>
+        
+        <div class="news-item">
+          <div class="news-title">苹果发布新一代iPhone，股价应声上涨</div>
+          <div class="news-summary">苹果公司昨日发布新一代iPhone，搭载全新AI功能，市场反应积极，股价上涨超过2%。</div>
+          <div class="news-meta">
+            <div class="news-source">
+              <div class="news-source-logo">B</div>
+              <span>彭博社</span>
+            </div>
+            <div class="news-time">09:15</div>
+          </div>
+        </div>
+        
+        <div class="news-item">
+          <div class="news-title">中国央行下调MLF利率，释放宽松信号</div>
+          <div class="news-summary">中国人民银行今日下调中期借贷便利(MLF)利率10个基点，释放货币政策宽松信号。</div>
+          <div class="news-meta">
+            <div class="news-source">
+              <div class="news-source-logo">R</div>
+              <span>路透社</span>
+            </div>
+            <div class="news-time">08:45</div>
+          </div>
+        </div>
+        
+        <div class="news-item">
+          <div class="news-title">特斯拉Q2财报不及预期，股价承压</div>
+          <div class="news-summary">特斯拉公布第二季度财报，营收和利润均不及市场预期，导致股价在盘后交易中下跌。</div>
+          <div class="news-meta">
+            <div class="news-source">
+              <div class="news-source-logo">F</div>
+              <span>财经时报</span>
+            </div>
+            <div class="news-time">昨天</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 财经日历 -->
+      <div id="calendar-view" style="display: none;">
+        <div class="calendar-header">
+          <div class="calendar-title">2023年8月</div>
+          <div class="calendar-nav">
+            <div class="calendar-nav-btn">
+              <i class="fas fa-chevron-left"></i>
+            </div>
+            <div class="calendar-nav-btn">
+              <i class="fas fa-chevron-right"></i>
+            </div>
+          </div>
+        </div>
+        
+        <div class="calendar-days">
+          <div class="calendar-day">周一</div>
+          <div class="calendar-day">周二</div>
+          <div class="calendar-day">周三</div>
+          <div class="calendar-day">周四</div>
+          <div class="calendar-day">周五</div>
+          <div class="calendar-day">周六</div>
+          <div class="calendar-day">周日</div>
+        </div>
+        
+        <div class="calendar-events">
+          <div class="calendar-event">
+            <div class="event-time">08:30</div>
+            <div class="event-content">
+              <div class="event-title">美国非农就业数据</div>
+              <div class="event-description">预期: +180K, 前值: +165K</div>
+              <div class="event-impact impact-high">高影响</div>
+            </div>
+          </div>
+          
+          <div class="calendar-event">
+            <div class="event-time">14:00</div>
+            <div class="event-content">
+              <div class="event-title">欧洲央行利率决议</div>
+              <div class="event-description">预期: 维持不变, 前值: 4.25%</div>
+              <div class="event-impact impact-high">高影响</div>
+            </div>
+          </div>
+          
+          <div class="calendar-event">
+            <div class="event-time">20:30</div>
+            <div class="event-content">
+              <div class="event-title">美国CPI数据</div>
+              <div class="event-description">预期: +3.2% YoY, 前值: +3.3% YoY</div>
+              <div class="event-impact impact-medium">中等影响</div>
+            </div>
+          </div>
+          
+          <div class="calendar-event">
+            <div class="event-time">22:00</div>
+            <div class="event-content">
+              <div class="event-title">美联储褐皮书</div>
+              <div class="event-description">美联储对当前经济状况的评估报告</div>
+              <div class="event-impact impact-low">低影响</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 研报 -->
+      <div id="research-list" style="display: none;">
+        <div class="research-item">
+          <div class="research-header">
+            <div class="research-source">
+              <div class="news-source-logo">M</div>
+              <span>摩根士丹利</span>
+            </div>
+            <div class="research-date">2023-08-15</div>
+          </div>
+          <div class="research-title">人工智能行业深度报告：算力革命与应用爆发</div>
+          <div class="research-summary">本报告深入分析了人工智能产业链，从芯片、算力到应用场景，预测未来5年AI市场规模将达到1万亿美元。</div>
+          <div class="research-tags">
+            <div class="research-tag">人工智能</div>
+            <div class="research-tag">芯片</div>
+            <div class="research-tag">深度学习</div>
+          </div>
+        </div>
+        
+        <div class="research-item">
+          <div class="research-header">
+            <div class="research-source">
+              <div class="news-source-logo">G</div>
+              <span>高盛</span>
+            </div>
+            <div class="research-date">2023-08-12</div>
+          </div>
+          <div class="research-title">新能源汽车行业展望：全球电动化加速与供应链重构</div>
+          <div class="research-summary">报告分析了全球电动汽车市场的发展趋势，预测到2030年电动汽车渗透率将达到40%，重点关注电池技术进步与供应链变革。</div>
+          <div class="research-tags">
+            <div class="research-tag">新能源汽车</div>
+            <div class="research-tag">电池</div>
+            <div class="research-tag">供应链</div>
+          </div>
+        </div>
+        
+        <div class="research-item">
+          <div class="research-header">
+            <div class="research-source">
+              <div class="news-source-logo">C</div>
+              <span>中金公司</span>
+            </div>
+            <div class="research-date">2023-08-10</div>
+          </div>
+          <div class="research-title">中国消费升级趋势研究：新消费群体与品牌崛起</div>
+          <div class="research-summary">报告聚焦中国消费市场变革，分析Z世代消费习惯与国货品牌崛起的背景，提出消费升级下的投资机会。</div>
+          <div class="research-tags">
+            <div class="research-tag">消费升级</div>
+            <div class="research-tag">国货品牌</div>
+            <div class="research-tag">Z世代</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 底部导航栏 -->
+    <div class="tab-bar">
+      <div class="tab-item" data-tab="home">
+        <i class="tab-icon fas fa-chart-line"></i>
+        <span>行情</span>
+      </div>
+      <div class="tab-item" data-tab="trade">
+        <i class="tab-icon fas fa-exchange-alt"></i>
+        <span>交易</span>
+      </div>
+      <div class="tab-item" data-tab="portfolio">
+        <i class="tab-icon fas fa-wallet"></i>
+        <span>资产</span>
+      </div>
+      <div class="tab-item active" data-tab="market">
+        <i class="tab-icon fas fa-globe"></i>
+        <span>市场</span>
+      </div>
+      <div class="tab-item" data-tab="profile">
+        <i class="tab-icon fas fa-user"></i>
+        <span>我的</span>
+      </div>
+    </div>
+  </div>
+  
+  <script src="../js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // 激活当前标签
+      const tabItems = document.querySelectorAll('.tab-item');
+      tabItems.forEach(item => {
+        item.classList.remove('active');
+      });
+      document.querySelector('.tab-item[data-tab="market"]').classList.add('active');
+      
+      // 市场选项卡切换
+      const marketTabs = document.querySelectorAll('.market-tab');
+      marketTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+          marketTabs.forEach(t => t.classList.remove('active'));
+          this.classList.add('active');
+          
+          // 切换内容
+          const newsView = document.getElementById('news-list');
+          const calendarView = document.getElementById('calendar-view');
+          const researchView = document.getElementById('research-list');
+          
+          newsView.style.display = 'none';
+          calendarView.style.display = 'none';
+          researchView.style.display = 'none';
+          
+          if (this.textContent === '财经新闻') {
+            newsView.style.display = 'block';
+          } else if (this.textContent === '财经日历') {
+            calendarView.style.display = 'block';
+          } else if (this.textContent === '研报') {
+            researchView.style.display = 'block';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html> 

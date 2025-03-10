@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>投资App - 资产</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../css/styles.css">
+  <style>
+    .portfolio-header {
+      padding: 20px 16px;
+      background-color: var(--primary-color);
+      color: white;
+      border-radius: 0 0 16px 16px;
+    }
+    
+    .portfolio-title {
+      font-size: 14px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .portfolio-amount {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    
+    .portfolio-stats {
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .stat-item {
+      flex: 1;
+    }
+    
+    .stat-label {
+      font-size: 12px;
+      opacity: 0.8;
+      margin-bottom: 4px;
+    }
+    
+    .stat-value {
+      font-size: 16px;
+      font-weight: 600;
+    }
+    
+    .portfolio-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--border-color);
+      margin: 16px 0;
+    }
+    
+    .portfolio-tab {
+      flex: 1;
+      text-align: center;
+      padding: 12px 0;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      position: relative;
+    }
+    
+    .portfolio-tab.active {
+      color: var(--primary-color);
+    }
+    
+    .portfolio-tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 25%;
+      right: 25%;
+      height: 2px;
+      background-color: var(--primary-color);
+    }
+    
+    .asset-allocation {
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    
+    .allocation-chart {
+      height: 200px;
+      position: relative;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .donut-chart {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: conic-gradient(
+        var(--primary-color) 0% 45%,
+        #ff9500 45% 65%,
+        #5856d6 65% 85%,
+        #ff2d55 85% 100%
+      );
+      position: relative;
+    }
+    
+    .donut-hole {
+      position: absolute;
+      width: 90px;
+      height: 90px;
+      background-color: white;
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    
+    .donut-label {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+    
+    .donut-value {
+      font-size: 16px;
+      font-weight: 700;
+    }
+    
+    .allocation-legend {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    
+    .legend-item {
+      display: flex;
+      align-items: center;
+      width: 50%;
+      margin-bottom: 8px;
+    }
+    
+    .legend-color {
+      width: 12px;
+      height: 12px;
+      border-radius: 2px;
+      margin-right: 8px;
+    }
+    
+    .legend-text {
+      font-size: 12px;
+    }
+    
+    .legend-value {
+      margin-left: auto;
+      font-weight: 600;
+    }
+    
+    .holdings-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 16px;
+      margin-bottom: 8px;
+    }
+    
+    .holdings-title {
+      font-size: 16px;
+      font-weight: 600;
+    }
+    
+    .holdings-filter {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+    
+    .holding-item {
+      display: flex;
+      padding: 16px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .holding-info {
+      flex: 1;
+    }
+    
+    .holding-name {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    
+    .holding-details {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+    
+    .holding-profit {
+      font-size: 14px;
+      font-weight: 600;
+    }
+    
+    .holding-price {
+      text-align: right;
+    }
+    
+    .holding-current {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    
+    .holding-change {
+      font-size: 12px;
+    }
+    
+    .empty-state {
+      padding: 32px 16px;
+      text-align: center;
+    }
+    
+    .empty-icon {
+      font-size: 48px;
+      color: var(--text-secondary);
+      opacity: 0.5;
+      margin-bottom: 16px;
+    }
+    
+    .empty-text {
+      font-size: 16px;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+    }
+    
+    .empty-btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: var(--primary-color);
+      color: white;
+      border-radius: 8px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="device-container">
+    <!-- iOS状态栏 -->
+    <div class="status-bar">
+      <div class="status-bar-left">
+        <span class="current-time">12:30</span>
+      </div>
+      <div class="status-bar-right">
+        <svg width="18" height="16" viewBox="0 0 18 16">
+          <path fill="#000" d="M1 12.5h11a1 1 0 0 1 0 2H1a1 1 0 0 1 0-2zm0-5h14a1 1 0 0 1 0 2H1a1 1 0 0 1 0-2zm0-5h7a1 1 0 0 1 0 2H1a1 1 0 0 1 0-2z"></path>
+        </svg>
+        <svg width="16" height="16" viewBox="0 0 16 16">
+          <path fill="#000" d="M12.667 4.667A4.671 4.671 0 0 0 8 0a4.671 4.671 0 0 0-4.667 4.667C3.333 8.552 8 16 8 16s4.667-7.448 4.667-11.333zm-4.667 2a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"></path>
+        </svg>
+        <svg width="24" height="16" viewBox="0 0 24 16">
+          <path fill="#000" d="M12 2c2.131 0 4 1.73 4 3.702 0 2.05-1.714 4.941-4 8.561-2.286-3.62-4-6.51-4-8.561C8 3.73 9.869 2 12 2zm0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"></path>
+        </svg>
+        <svg width="25" height="16" viewBox="0 0 25 16">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M16 5C16 7.761 13.761 10 11 10C8.239 10 6 7.761 6 5C6 2.239 8.239 0 11 0C13.761 0 16 2.239 16 5ZM8 5C8 6.657 9.343 8 11 8C12.657 8 14 6.657 14 5C14 3.343 12.657 2 11 2C9.343 2 8 3.343 8 5ZM21.5 7C21.5 8.933 19.933 10.5 18 10.5C16.067 10.5 14.5 8.933 14.5 7C14.5 5.067 16.067 3.5 18 3.5C19.933 3.5 21.5 5.067 21.5 7ZM18 8.5C18.828 8.5 19.5 7.828 19.5 7C19.5 6.172 18.828 5.5 18 5.5C17.172 5.5 16.5 6.172 16.5 7C16.5 7.828 17.172 8.5 18 8.5ZM22 14.834C22 11.834 18 10.834 18 10.834C18 10.834 14 11.834 14 14.834V16H22V14.834ZM16.184 14C16.598 13.335 17.223 13 18 13C18.777 13 19.402 13.335 19.816 14H16.184ZM11 11C7.667 11 1 12.667 1 16V16H21V16C21 12.667 14.333 11 11 11ZM3.109 14C4.075 13.279 6.792 13 11 13C15.208 13 17.925 13.279 18.891 14H3.109Z" fill="#000"/>
+        </svg>
+        <svg width="20" height="16" viewBox="0 0 20 16">
+          <path fill="#000" d="M19.98 5.888c-.144-1.104-.816-1.968-1.728-2.112l-14.352-.576c-1.008-.048-1.92.672-2.112 1.728-.528 3.312-1.728 7.152-1.728 7.152-.144 1.104.672 1.776 1.728 1.92l14.256.576h.096c1.008 0 1.824-.672 2.016-1.728 0 0 1.248-3.936 1.824-7.008v.048z"></path>
+        </svg>
+      </div>
+    </div>
+    
+    <!-- 内容区域 -->
+    <div class="app-content">
+      <!-- 资产头部 -->
+      <div class="portfolio-header">
+        <div class="portfolio-title">
+          <span>总资产 (USD)</span>
+          <i class="fas fa-eye"></i>
+        </div>
+        <div class="portfolio-amount" id="total-assets">125,678.45</div>
+        <div class="portfolio-stats">
+          <div class="stat-item">
+            <div class="stat-label">今日盈亏</div>
+            <div class="stat-value price-up" id="today-profit">+1,234.56</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">总盈亏</div>
+            <div class="stat-value price-up" id="total-profit">+12,345.67 (+10.87%)</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 资产选项卡 -->
+      <div class="portfolio-tabs">
+        <div class="portfolio-tab active">持仓</div>
+        <div class="portfolio-tab">资产分析</div>
+        <div class="portfolio-tab">交易记录</div>
+      </div>
+      
+      <!-- 资产分配 -->
+      <div class="asset-allocation">
+        <div class="allocation-chart">
+          <div class="donut-chart">
+            <div class="donut-hole">
+              <div class="donut-label">总资产</div>
+              <div class="donut-value">$125,678</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="allocation-legend">
+          <div class="legend-item">
+            <div class="legend-color" style="background-color: var(--primary-color);"></div>
+            <div class="legend-text">美股</div>
+            <div class="legend-value">45%</div>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background-color: #ff9500;"></div>
+            <div class="legend-text">港股</div>
+            <div class="legend-value">20%</div>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background-color: #5856d6;"></div>
+            <div class="legend-text">A股</div>
+            <div class="legend-value">20%</div>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background-color: #ff2d55;"></div>
+            <div class="legend-text">现金</div>
+            <div class="legend-value">15%</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 持仓列表 -->
+      <div class="holdings-header">
+        <div class="holdings-title">我的持仓</div>
+        <div class="holdings-filter">
+          <i class="fas fa-sort-amount-down"></i> 按盈亏排序
+        </div>
+      </div>
+      
+      <div id="holdings-list">
+        <div class="holding-item">
+          <div class="holding-info">
+            <div class="holding-name">苹果</div>
+            <div class="holding-details">AAPL · 10股 · 成本价 $175.32</div>
+            <div class="holding-profit price-up">+$145.20 (+8.27%)</div>
+          </div>
+          <div class="holding-price">
+            <div class="holding-current">$189.84</div>
+            <div class="holding-change price-up">+1.25%</div>
+          </div>
+        </div>
+        
+        <div class="holding-item">
+          <div class="holding-info">
+            <div class="holding-name">阿里巴巴</div>
+            <div class="holding-details">BABA · 50股 · 成本价 $70.25</div>
+            <div class="holding-profit price-up">+$158.50 (+4.51%)</div>
+          </div>
+          <div class="holding-price">
+            <div class="holding-current">$73.42</div>
+            <div class="holding-change price-up">+1.20%</div>
+          </div>
+        </div>
+        
+        <div class="holding-item">
+          <div class="holding-info">
+            <div class="holding-name">贵州茅台</div>
+            <div class="holding-details">600519 · 2股 · 成本价 ¥1750.00</div>
+            <div class="holding-profit price-up">+¥79.00 (+2.26%)</div>
+          </div>
+          <div class="holding-price">
+            <div class="holding-current">¥1789.50</div>
+            <div class="holding-change price-up">+1.33%</div>
+          </div>
+        </div>
+        
+        <div class="holding-item">
+          <div class="holding-info">
+            <div class="holding-name">五粮液</div>
+            <div class="holding-details">000858 · 15股 · 成本价 ¥172.50</div>
+            <div class="holding-profit price-down">-¥56.25 (-2.17%)</div>
+          </div>
+          <div class="holding-price">
+            <div class="holding-current">¥168.75</div>
+            <div class="holding-change price-down">-1.37%</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 空状态 (隐藏) -->
+      <div class="empty-state" style="display: none;">
+        <div class="empty-icon">
+          <i class="fas fa-wallet"></i>
+        </div>
+        <div class="empty-text">您还没有任何持仓</div>
+        <div class="empty-btn">开始投资</div>
+      </div>
+    </div>
+    
+    <!-- 底部导航栏 -->
+    <div class="tab-bar">
+      <div class="tab-item" data-tab="home">
+        <i class="tab-icon fas fa-chart-line"></i>
+        <span>行情</span>
+      </div>
+      <div class="tab-item" data-tab="trade">
+        <i class="tab-icon fas fa-exchange-alt"></i>
+        <span>交易</span>
+      </div>
+      <div class="tab-item active" data-tab="portfolio">
+        <i class="tab-icon fas fa-wallet"></i>
+        <span>资产</span>
+      </div>
+      <div class="tab-item" data-tab="market">
+        <i class="tab-icon fas fa-globe"></i>
+        <span>市场</span>
+      </div>
+      <div class="tab-item" data-tab="profile">
+        <i class="tab-icon fas fa-user"></i>
+        <span>我的</span>
+      </div>
+    </div>
+  </div>
+  
+  <script src="../js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // 激活当前标签
+      const tabItems = document.querySelectorAll('.tab-item');
+      tabItems.forEach(item => {
+        item.classList.remove('active');
+      });
+      document.querySelector('.tab-item[data-tab="portfolio"]').classList.add('active');
+      
+      // 资产选项卡切换
+      const portfolioTabs = document.querySelectorAll('.portfolio-tab');
+      portfolioTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+          portfolioTabs.forEach(t => t.classList.remove('active'));
+          this.classList.add('active');
+          
+          // 切换内容
+          if (this.textContent === '持仓') {
+            document.querySelector('.asset-allocation').style.display = 'none';
+            document.querySelector('#holdings-list').style.display = 'block';
+            document.querySelector('.holdings-header').style.display = 'flex';
+          } else if (this.textContent === '资产分析') {
+            document.querySelector('.asset-allocation').style.display = 'block';
+            document.querySelector('#holdings-list').style.display = 'none';
+            document.querySelector('.holdings-header').style.display = 'none';
+          } else {
+            document.querySelector('.asset-allocation').style.display = 'none';
+            document.querySelector('#holdings-list').style.display = 'none';
+            document.querySelector('.holdings-header').style.display = 'none';
+            document.querySelector('.empty-state').style.display = 'block';
+            document.querySelector('.empty-text').textContent = '暂无交易记录';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html> 

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>投资App原型设计</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #f0f0f0;
+      padding: 20px;
+      margin: 0;
+      overflow-x: hidden;
+    }
+    
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #333;
+    }
+    
+    .prototypes-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 60px;
+      padding: 20px;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+    
+    .prototype-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .prototype-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: #333;
+    }
+    
+    /* iPhone外壳样式 */
+    .iphone-container {
+      width: 425px;
+      height: 880px;
+      background-color: #1a1a1a;
+      border-radius: 55px;
+      padding: 14px;
+      position: relative;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+      border: 1px solid #444;
+      box-sizing: border-box;
+    }
+    
+    /* 动态岛 */
+    .dynamic-island {
+      position: absolute;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 35px;
+      background-color: #000;
+      border-radius: 20px;
+      z-index: 10;
+    }
+    
+    /* 摄像头 */
+    .camera {
+      position: absolute;
+      top: 22px;
+      right: 95px;
+      width: 12px;
+      height: 12px;
+      background-color: #222;
+      border-radius: 50%;
+      border: 2px solid #444;
+    }
+    
+    /* 扬声器 */
+    .speaker {
+      position: absolute;
+      top: 27px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 6px;
+      background-color: #222;
+      border-radius: 3px;
+    }
+    
+    /* 侧边按钮 */
+    .side-button {
+      position: absolute;
+      right: -2px;
+      width: 4px;
+      height: 30px;
+      background-color: #444;
+      border-radius: 2px;
+    }
+    
+    .power-button {
+      top: 180px;
+    }
+    
+    .volume-up {
+      top: 220px;
+      left: -2px;
+    }
+    
+    .volume-down {
+      top: 260px;
+      left: -2px;
+    }
+    
+    /* 静音开关 */
+    .mute-switch {
+      position: absolute;
+      top: 150px;
+      left: -2px;
+      width: 4px;
+      height: 20px;
+      background-color: #444;
+      border-radius: 2px;
+    }
+    
+    /* 屏幕 */
+    .screen {
+      width: 100%;
+      height: 100%;
+      background-color: #000;
+      border-radius: 45px;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    /* iframe样式 */
+    .prototype-frame {
+      border: none;
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    
+    /* 底部指示条 */
+    .home-indicator {
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 140px;
+      height: 5px;
+      background-color: #fff;
+      border-radius: 3px;
+      z-index: 10;
+    }
+    
+    @media (max-width: 768px) {
+      .prototypes-grid {
+        gap: 40px;
+      }
+      
+      .iphone-container {
+        width: 340px;
+        height: 700px;
+        border-radius: 45px;
+      }
+      
+      .dynamic-island {
+        width: 90px;
+        height: 25px;
+      }
+      
+      .camera {
+        width: 8px;
+        height: 8px;
+        right: 75px;
+        top: 18px;
+      }
+      
+      .speaker {
+        width: 40px;
+        height: 4px;
+      }
+      
+      .home-indicator {
+        width: 100px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>投资App原型设计</h1>
+  
+  <div class="prototypes-grid">
+    <div class="prototype-container">
+      <div class="prototype-title">首页/行情</div>
+      <div class="iphone-container">
+        <div class="dynamic-island"></div>
+        <div class="camera"></div>
+        <div class="speaker"></div>
+        <div class="side-button power-button"></div>
+        <div class="side-button volume-up"></div>
+        <div class="side-button volume-down"></div>
+        <div class="mute-switch"></div>
+        <div class="screen">
+          <iframe src="pages/home.html" class="prototype-frame" scrolling="no"></iframe>
+          <div class="home-indicator"></div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="prototype-container">
+      <div class="prototype-title">交易</div>
+      <div class="iphone-container">
+        <div class="dynamic-island"></div>
+        <div class="camera"></div>
+        <div class="speaker"></div>
+        <div class="side-button power-button"></div>
+        <div class="side-button volume-up"></div>
+        <div class="side-button volume-down"></div>
+        <div class="mute-switch"></div>
+        <div class="screen">
+          <iframe src="pages/trade.html" class="prototype-frame" scrolling="no"></iframe>
+          <div class="home-indicator"></div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="prototype-container">
+      <div class="prototype-title">资产/持仓</div>
+      <div class="iphone-container">
+        <div class="dynamic-island"></div>
+        <div class="camera"></div>
+        <div class="speaker"></div>
+        <div class="side-button power-button"></div>
+        <div class="side-button volume-up"></div>
+        <div class="side-button volume-down"></div>
+        <div class="mute-switch"></div>
+        <div class="screen">
+          <iframe src="pages/portfolio.html" class="prototype-frame" scrolling="no"></iframe>
+          <div class="home-indicator"></div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="prototype-container">
+      <div class="prototype-title">市场</div>
+      <div class="iphone-container">
+        <div class="dynamic-island"></div>
+        <div class="camera"></div>
+        <div class="speaker"></div>
+        <div class="side-button power-button"></div>
+        <div class="side-button volume-up"></div>
+        <div class="side-button volume-down"></div>
+        <div class="mute-switch"></div>
+        <div class="screen">
+          <iframe src="pages/market.html" class="prototype-frame" scrolling="no"></iframe>
+          <div class="home-indicator"></div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="prototype-container">
+      <div class="prototype-title">个人中心</div>
+      <div class="iphone-container">
+        <div class="dynamic-island"></div>
+        <div class="camera"></div>
+        <div class="speaker"></div>
+        <div class="side-button power-button"></div>
+        <div class="side-button volume-up"></div>
+        <div class="side-button volume-down"></div>
+        <div class="mute-switch"></div>
+        <div class="screen">
+          <iframe src="pages/profile.html" class="prototype-frame" scrolling="no"></iframe>
+          <div class="home-indicator"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script src="js/main.js"></script>
+</body>
+</html> 

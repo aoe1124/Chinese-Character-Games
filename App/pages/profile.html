@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>投资App - 个人中心</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../css/styles.css">
+  <style>
+    .profile-header {
+      padding: 24px 16px;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .profile-avatar {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background-color: #f0f0f0;
+      margin-right: 16px;
+      overflow: hidden;
+    }
+    
+    .profile-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .profile-info {
+      flex: 1;
+    }
+    
+    .profile-name {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    
+    .profile-id {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+    
+    .profile-level {
+      display: inline-block;
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 12px;
+      background-color: rgba(0, 192, 135, 0.1);
+      color: var(--primary-color);
+    }
+    
+    .profile-edit {
+      color: var(--text-secondary);
+      font-size: 20px;
+    }
+    
+    .account-summary {
+      padding: 16px;
+      display: flex;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .account-item {
+      flex: 1;
+      text-align: center;
+    }
+    
+    .account-value {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    
+    .account-label {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+    
+    .menu-section {
+      margin: 16px 0;
+    }
+    
+    .menu-header {
+      padding: 0 16px;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+    
+    .menu-item {
+      display: flex;
+      align-items: center;
+      padding: 16px;
+      background-color: var(--card-bg);
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .menu-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      background-color: var(--bg-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 12px;
+      color: var(--primary-color);
+    }
+    
+    .menu-title {
+      flex: 1;
+      font-size: 16px;
+    }
+    
+    .menu-arrow {
+      color: var(--text-secondary);
+    }
+    
+    .menu-badge {
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 10px;
+      background-color: #ff3b30;
+      color: white;
+      margin-right: 8px;
+    }
+    
+    .menu-switch {
+      position: relative;
+      width: 40px;
+      height: 24px;
+      border-radius: 12px;
+      background-color: var(--primary-color);
+    }
+    
+    .menu-switch::before {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: white;
+      top: 2px;
+      right: 2px;
+      transition: all 0.2s;
+    }
+    
+    .menu-switch.off {
+      background-color: #e0e0e0;
+    }
+    
+    .menu-switch.off::before {
+      right: 18px;
+    }
+    
+    .logout-btn {
+      margin: 24px 16px;
+      padding: 12px 0;
+      text-align: center;
+      background-color: var(--bg-color);
+      border-radius: 8px;
+      color: #ff3b30;
+      font-size: 16px;
+      font-weight: 600;
+    }
+    
+    .app-version {
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="device-container">
+    <!-- iOS状态栏 -->
+    <div class="status-bar">
+      <div class="status-bar-left">
+        <span class="current-time">12:30</span>
+      </div>
+      <div class="status-bar-right">
+        <svg width="18" height="16" viewBox="0 0 18 16">
+          <path fill="#000" d="M1 12.5h11a1 1 0 0 1 0 2H1a1 1 0 0 1 0-2zm0-5h14a1 1 0 0 1 0 2H1a1 1 0 0 1 0-2zm0-5h7a1 1 0 0 1 0 2H1a1 1 0 0 1 0-2z"></path>
+        </svg>
+        <svg width="16" height="16" viewBox="0 0 16 16">
+          <path fill="#000" d="M12.667 4.667A4.671 4.671 0 0 0 8 0a4.671 4.671 0 0 0-4.667 4.667C3.333 8.552 8 16 8 16s4.667-7.448 4.667-11.333zm-4.667 2a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"></path>
+        </svg>
+        <svg width="24" height="16" viewBox="0 0 24 16">
+          <path fill="#000" d="M12 2c2.131 0 4 1.73 4 3.702 0 2.05-1.714 4.941-4 8.561-2.286-3.62-4-6.51-4-8.561C8 3.73 9.869 2 12 2zm0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"></path>
+        </svg>
+        <svg width="25" height="16" viewBox="0 0 25 16">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M16 5C16 7.761 13.761 10 11 10C8.239 10 6 7.761 6 5C6 2.239 8.239 0 11 0C13.761 0 16 2.239 16 5ZM8 5C8 6.657 9.343 8 11 8C12.657 8 14 6.657 14 5C14 3.343 12.657 2 11 2C9.343 2 8 3.343 8 5ZM21.5 7C21.5 8.933 19.933 10.5 18 10.5C16.067 10.5 14.5 8.933 14.5 7C14.5 5.067 16.067 3.5 18 3.5C19.933 3.5 21.5 5.067 21.5 7ZM18 8.5C18.828 8.5 19.5 7.828 19.5 7C19.5 6.172 18.828 5.5 18 5.5C17.172 5.5 16.5 6.172 16.5 7C16.5 7.828 17.172 8.5 18 8.5ZM22 14.834C22 11.834 18 10.834 18 10.834C18 10.834 14 11.834 14 14.834V16H22V14.834ZM16.184 14C16.598 13.335 17.223 13 18 13C18.777 13 19.402 13.335 19.816 14H16.184ZM11 11C7.667 11 1 12.667 1 16V16H21V16C21 12.667 14.333 11 11 11ZM3.109 14C4.075 13.279 6.792 13 11 13C15.208 13 17.925 13.279 18.891 14H3.109Z" fill="#000"/>
+        </svg>
+        <svg width="20" height="16" viewBox="0 0 20 16">
+          <path fill="#000" d="M19.98 5.888c-.144-1.104-.816-1.968-1.728-2.112l-14.352-.576c-1.008-.048-1.92.672-2.112 1.728-.528 3.312-1.728 7.152-1.728 7.152-.144 1.104.672 1.776 1.728 1.92l14.256.576h.096c1.008 0 1.824-.672 2.016-1.728 0 0 1.248-3.936 1.824-7.008v.048z"></path>
+        </svg>
+      </div>
+    </div>
+    
+    <!-- 内容区域 -->
+    <div class="app-content">
+      <!-- 个人信息头部 -->
+      <div class="profile-header">
+        <div class="profile-avatar">
+          <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="用户头像">
+        </div>
+        <div class="profile-info">
+          <div class="profile-name">张三</div>
+          <div class="profile-id">ID: 12345678</div>
+          <div class="profile-level">VIP 3</div>
+        </div>
+        <div class="profile-edit">
+          <i class="fas fa-chevron-right"></i>
+        </div>
+      </div>
+      
+      <!-- 账户概览 -->
+      <div class="account-summary">
+        <div class="account-item">
+          <div class="account-value">3</div>
+          <div class="account-label">关注</div>
+        </div>
+        <div class="account-item">
+          <div class="account-value">12</div>
+          <div class="account-label">粉丝</div>
+        </div>
+        <div class="account-item">
+          <div class="account-value">28</div>
+          <div class="account-label">动态</div>
+        </div>
+      </div>
+      
+      <!-- 我的服务 -->
+      <div class="menu-section">
+        <div class="menu-header">我的服务</div>
+        <div class="menu-item">
+          <div class="menu-icon">
+            <i class="fas fa-bell"></i>
+          </div>
+          <div class="menu-title">消息中心</div>
+          <div class="menu-badge">3</div>
+          <div class="menu-arrow">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-icon">
+            <i class="fas fa-gift"></i>
+          </div>
+          <div class="menu-title">我的礼包</div>
+          <div class="menu-arrow">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-icon">
+            <i class="fas fa-star"></i>
+          </div>
+          <div class="menu-title">我的收藏</div>
+          <div class="menu-arrow">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-icon">
+            <i class="fas fa-headset"></i>
+          </div>
+          <div class="menu-title">客服中心</div>
+          <div class="menu-arrow">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 账户与安全 -->
+      <div class="menu-section">
+        <div class="menu-header">账户与安全</div>
+        <div class="menu-item">
+          <div class="menu-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <div class="menu-title">账户安全</div>
+          <div class="menu-arrow">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-icon">
+            <i class="fas fa-fingerprint"></i>
+          </div>
+          <div class="menu-title">生物识别</div>
+          <div class="menu-switch"></div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-icon">
+            <i class="fas fa-lock"></i>
+          </div>
+          <div class="menu-title">隐私设置</div>
+          <div class="menu-arrow">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 通用设置 -->
+      <div class="menu-section">
+        <div class="menu-header">通用设置</div>
+        <div class="menu-item">
+          <div class="menu-icon">
+            <i class="fas fa-moon"></i>
+          </div>
+          <div class="menu-title">深色模式</div>
+          <div class="menu-switch off"></div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-icon">
+            <i class="fas fa-globe"></i>
+          </div>
+          <div class="menu-title">语言</div>
+          <div style="color: var(--text-secondary); margin-right: 8px;">简体中文</div>
+          <div class="menu-arrow">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-icon">
+            <i class="fas fa-bell-slash"></i>
+          </div>
+          <div class="menu-title">通知设置</div>
+          <div class="menu-arrow">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-icon">
+            <i class="fas fa-info-circle"></i>
+          </div>
+          <div class="menu-title">关于我们</div>
+          <div class="menu-arrow">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 退出登录 -->
+      <div class="logout-btn">退出登录</div>
+      
+      <!-- 版本信息 -->
+      <div class="app-version">版本 1.0.0</div>
+    </div>
+    
+    <!-- 底部导航栏 -->
+    <div class="tab-bar">
+      <div class="tab-item" data-tab="home">
+        <i class="tab-icon fas fa-chart-line"></i>
+        <span>行情</span>
+      </div>
+      <div class="tab-item" data-tab="trade">
+        <i class="tab-icon fas fa-exchange-alt"></i>
+        <span>交易</span>
+      </div>
+      <div class="tab-item" data-tab="portfolio">
+        <i class="tab-icon fas fa-wallet"></i>
+        <span>资产</span>
+      </div>
+      <div class="tab-item" data-tab="market">
+        <i class="tab-icon fas fa-globe"></i>
+        <span>市场</span>
+      </div>
+      <div class="tab-item active" data-tab="profile">
+        <i class="tab-icon fas fa-user"></i>
+        <span>我的</span>
+      </div>
+    </div>
+  </div>
+  
+  <script src="../js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // 激活当前标签
+      const tabItems = document.querySelectorAll('.tab-item');
+      tabItems.forEach(item => {
+        item.classList.remove('active');
+      });
+      document.querySelector('.tab-item[data-tab="profile"]').classList.add('active');
+      
+      // 开关切换
+      const switches = document.querySelectorAll('.menu-switch');
+      switches.forEach(switchEl => {
+        switchEl.addEventListener('click', function() {
+          this.classList.toggle('off');
+        });
+      });
+      
+      // 菜单项点击
+      const menuItems = document.querySelectorAll('.menu-item');
+      menuItems.forEach(item => {
+        item.addEventListener('click', function() {
+          // 如果包含开关，则不执行跳转
+          if (!this.querySelector('.menu-switch')) {
+            console.log('点击了菜单项：', this.querySelector('.menu-title').textContent);
+          }
+        });
+      });
+      
+      // 退出登录
+      document.querySelector('.logout-btn').addEventListener('click', function() {
+        if (confirm('确定要退出登录吗？')) {
+          console.log('用户退出登录');
+        }
+      });
+    });
+  </script>
+</body>
+</html> 
